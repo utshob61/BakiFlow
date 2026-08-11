@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}BakiFlow | Customers{% endblock %}
 
@@ -16,7 +17,7 @@
         </div>
     </div>
 
-    <div class="apple-list">
+    <div class="apple-list shadow-lg">
         {% for customer in customers %}
         <div class="list-item flex-column flex-md-row align-items-start align-items-md-center">
             <div style="display: flex; align-items: center; gap: 24px;" class="mb-4 mb-md-0">
@@ -24,11 +25,11 @@
                     <i class="fa-solid fa-user-tie"></i>
                 </div>
                 <div>
-                    <div class="item-title">{{ customer.name }}</div>
+                    <div class="item-title" style="font-size: 18px; font-weight: 700;">{{ customer.name }}</div>
                     <div class="item-subtitle">
                         <i class="fa-solid fa-phone me-1" style="font-size: 11px;"></i> {{ customer.phone }}
                         <span class="mx-2" style="opacity: 0.3;">•</span>
-                        <span style="font-weight: 600; color: {% if customer.status == 'ACTIVE' %}var(--brand-green){% else %}var(--brand-red){% endif %};">
+                        <span style="font-weight: 700; color: {% if customer.status == 'ACTIVE' %}var(--brand-green){% else %}var(--brand-red){% endif %};">
                             {{ customer.get_status_display }}
                         </span>
                     </div>
@@ -37,35 +38,36 @@
 
             <div class="d-flex align-items-center gap-5 ms-md-auto w-100 w-md-auto justify-content-between justify-content-md-end flex-wrap">
                 <div style="text-align: center;" class="d-none d-lg-block">
-                    <div class="stat-label" style="margin-bottom: 4px;">Behavior</div>
+                    <div class="stat-label" style="margin-bottom: 4px;">Collection Score</div>
                     {% with score=customer.reliability_score.score %}
-                        <div style="display: flex; align-items: center; gap: 8px;">
-                            <div style="width: 50px; height: 6px; background: rgba(255,255,255,0.1); border-radius: 3px; overflow: hidden;">
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <div style="width: 60px; height: 6px; background: rgba(255,255,255,0.1); border-radius: 3px; overflow: hidden;">
                                 <div style="width: {{ score|default:0 }}%; height: 100%; background: {% if score > 70 %}var(--brand-green){% elif score > 40 %}var(--brand-orange){% else %}var(--brand-red){% endif %};"></div>
                             </div>
-                            <span style="font-weight: 700; font-size: 13px; color: {% if score > 70 %}var(--brand-green){% elif score > 40 %}var(--brand-orange){% else %}var(--brand-red){% endif %};">
+                            <span style="font-weight: 800; font-size: 14px; color: {% if score > 70 %}var(--brand-green){% elif score > 40 %}var(--brand-orange){% else %}var(--brand-red){% endif %};">
                                 {{ score|default:"—" }}{% if score %}%{% endif %}
                             </span>
                         </div>
                     {% endwith %}
                 </div>
 
-                <div style="text-align: right; min-width: 140px;">
+                <div style="text-align: right; min-width: 160px;">
                     <div class="stat-label" style="margin-bottom: 2px;">Outstanding</div>
-                    <div style="font-weight: 800; font-size: 22px; color: {% if customer.credit_account.current_balance > 0 %}var(--brand-red){% else %}var(--brand-green){% endif %};">
+                    <div style="font-weight: 800; font-size: 24px; letter-spacing: -0.02em; color: {% if customer.credit_account.current_balance > 0 %}var(--brand-red){% else %}var(--brand-green){% endif %};">
                         ৳{{ customer.credit_account.current_balance|floatformat:0 }}
                     </div>
                 </div>
 
-                <a href="/api/v1/customers/{{ customer.id }}/" class="apple-btn" style="background: var(--bg-input); border: 1px solid var(--border-color); color: var(--text-primary) !important;">
-                    Profile
+                <a href="/api/v1/customers/{{ customer.id }}/" class="apple-btn" style="background: var(--bg-input); border: 1px solid var(--border-color); padding: 12px 24px; font-size: 13px;">
+                    Details
                 </a>
             </div>
         </div>
         {% empty %}
-        <div style="padding: 80px; text-align: center; color: var(--text-secondary);">
-            <i class="fa-solid fa-users-slash fa-4x mb-4 opacity-20"></i>
-            <p style="font-size: 16px; font-weight: 500;">No customers found in your database.</p>
+        <div style="padding: 100px 40px; text-align: center; color: var(--text-secondary);">
+            <i class="fa-solid fa-users-slash fa-5x mb-4 opacity-10"></i>
+            <p style="font-size: 18px; font-weight: 600;">No customer records found.</p>
+            <p class="small opacity-60">Add your first customer to begin tracking credit.</p>
         </div>
         {% endfor %}
     </div>

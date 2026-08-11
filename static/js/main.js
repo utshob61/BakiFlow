@@ -1,72 +1,71 @@
 /**
  * BakiFlow System Interface Logic v1.0
+ * Unified Theme & Navigation Management
  */
 
-document.addEventListener('DOMContentLoaded', function() {
-    console.log('BakiFlow v1.0 Initialized');
+(function() {
+    'use strict';
 
-    const htmlElement = document.documentElement;
-    const themeToggle = document.getElementById('theme-toggle');
+    document.addEventListener('DOMContentLoaded', function() {
+        console.log('BakiFlow v1.0 Framework Initialized');
 
-    /**
-     * Theme Management Logic
-     */
-    function applyTheme(theme) {
-        htmlElement.setAttribute('data-theme', theme);
-        localStorage.setItem('theme', theme);
-        updateToggleIcon(theme);
-    }
+        const html = document.documentElement;
+        const themeToggle = document.getElementById('theme-toggle');
 
-    function updateToggleIcon(theme) {
-        if (!themeToggle) return;
-        const icon = themeToggle.querySelector('i');
-        if (!icon) return;
-
-        if (theme === 'dark') {
-            icon.className = 'fa-solid fa-sun';
-            themeToggle.title = "Switch to Light Mode";
-        } else {
-            icon.className = 'fa-solid fa-moon';
-            themeToggle.title = "Switch to Dark Mode";
-        }
-    }
-
-    // Set initial theme from storage or default to dark
-    const initialTheme = localStorage.getItem('theme') || 'dark';
-    applyTheme(initialTheme);
-
-    if (themeToggle) {
-        themeToggle.addEventListener('click', function(e) {
-            e.preventDefault();
-            const currentTheme = htmlElement.getAttribute('data-theme');
-            const targetTheme = currentTheme === 'dark' ? 'light' : 'dark';
-            applyTheme(targetTheme);
-        });
-    }
-
-    /**
-     * Navigation Logic
-     */
-    const currentPath = window.location.pathname.replace(/\/$/, "");
-
-    // Desktop Nav highlighting
-    document.querySelectorAll('.nav-link').forEach(link => {
-        const href = link.getAttribute('href');
-        if (href) {
-            const normalizedHref = href.replace(/\/$/, "");
-            if (currentPath === normalizedHref) {
-                link.classList.add('active-page');
+        /**
+         * 🌓 Theme Engine
+         */
+        const updateIcon = (theme) => {
+            if (!themeToggle) return;
+            const icon = themeToggle.querySelector('i');
+            if (icon) {
+                icon.className = theme === 'dark' ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
             }
-        }
-    });
+        };
 
-    // Handle form focus visual consistency
-    document.querySelectorAll('input').forEach(input => {
-        input.addEventListener('focus', () => {
-            input.parentElement.classList.add('input-focused');
+        const setTheme = (theme) => {
+            html.setAttribute('data-theme', theme);
+            localStorage.setItem('theme', theme);
+            updateIcon(theme);
+        };
+
+        // Initialize from storage
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        setTheme(savedTheme);
+
+        if (themeToggle) {
+            themeToggle.addEventListener('click', (e) => {
+                e.preventDefault();
+                const newTheme = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+                setTheme(newTheme);
+            });
+        }
+
+        /**
+         * 🔗 Navigation & UX
+         */
+        const path = window.location.pathname.replace(/\/$/, "");
+
+        document.querySelectorAll('.nav-link').forEach(link => {
+            const href = link.getAttribute('href');
+            if (href) {
+                const cleanHref = href.replace(/\/$/, "");
+                if (path === cleanHref) {
+                    link.classList.add('active-page');
+                    link.style.color = 'var(--brand-blue)';
+                    link.style.fontWeight = '700';
+                }
+            }
         });
-        input.addEventListener('blur', () => {
-            input.parentElement.classList.remove('input-focused');
+
+        // Form Alignment & Focus Polish
+        document.querySelectorAll('.form-control-custom').forEach(input => {
+            input.addEventListener('focus', () => {
+                input.closest('.input-wrapper').style.borderColor = 'var(--brand-blue)';
+            });
+            input.addEventListener('blur', () => {
+                input.closest('.input-wrapper').style.borderColor = 'var(--border-color)';
+            });
         });
     });
-});
+})();

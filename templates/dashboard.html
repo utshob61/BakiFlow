@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}BakiFlow | Dashboard{% endblock %}
 
@@ -19,7 +20,7 @@
                 <div class="stat-header">Total Receivables</div>
                 <div class="stat-value-large">৳{{ total_receivables|floatformat:0 }}</div>
                 <div style="font-size: 12px; color: var(--text-secondary); margin-top: 12px;">
-                    <i class="fa-solid fa-arrow-trend-up text-brand-green me-1"></i> +4.2% from last month
+                    <i class="fa-solid fa-chart-line text-brand-blue me-1"></i> Current Portfolio
                 </div>
             </div>
         </div>
@@ -37,7 +38,7 @@
                 <div class="stat-header">Collected This Month</div>
                 <div class="stat-value-large" style="color: var(--brand-green);">৳{{ collected_this_month|floatformat:0 }}</div>
                 <div style="font-size: 12px; color: var(--text-secondary); margin-top: 12px;">
-                    <i class="fa-solid fa-check-circle text-brand-green me-1"></i> On track
+                    <i class="fa-solid fa-check-circle text-brand-green me-1"></i> Month-to-date
                 </div>
             </div>
         </div>
@@ -46,27 +47,27 @@
     <h3 class="section-title">QUICK ACTIONS</h3>
     <div class="row g-3">
         <div class="col-6 col-md-3">
-            <a href="/customers/" class="action-item">
+            <a href="{% url 'customer_list' %}" class="action-item">
                 <div class="action-icon-wrapper" style="background: rgba(37, 99, 235, 0.1); color: var(--brand-blue);">
                     <i class="fa-solid fa-user-plus"></i>
                 </div>
-                <span style="font-weight: 600; font-size: 14px;">Add Customer</span>
+                <span style="font-weight: 600; font-size: 14px;">Customers</span>
             </a>
         </div>
         <div class="col-6 col-md-3">
-            <a href="/credit/" class="action-item">
+            <a href="{% url 'credit_sale_list' %}" class="action-item">
                 <div class="action-icon-wrapper" style="background: rgba(245, 158, 11, 0.1); color: var(--brand-orange);">
                     <i class="fa-solid fa-file-invoice-dollar"></i>
                 </div>
-                <span style="font-weight: 600; font-size: 14px;">Record Baki</span>
+                <span style="font-weight: 600; font-size: 14px;">Baki Ledger</span>
             </a>
         </div>
         <div class="col-6 col-md-3">
-            <a href="/payments/" class="action-item">
+            <a href="{% url 'payment_list' %}" class="action-item">
                 <div class="action-icon-wrapper" style="background: rgba(16, 185, 129, 0.1); color: var(--brand-green);">
                     <i class="fa-solid fa-hand-holding-dollar"></i>
                 </div>
-                <span style="font-weight: 600; font-size: 14px;">Receive Cash</span>
+                <span style="font-weight: 600; font-size: 14px;">Collections</span>
             </a>
         </div>
         <div class="col-6 col-md-3">
@@ -74,37 +75,33 @@
                 <div class="action-icon-wrapper" style="background: rgba(156, 163, 175, 0.1); color: var(--text-secondary);">
                     <i class="fa-solid fa-file-export"></i>
                 </div>
-                <span style="font-weight: 600; font-size: 14px;">Export CSV</span>
+                <span style="font-weight: 600; font-size: 14px;">Export Data</span>
             </a>
         </div>
     </div>
 
     <h3 class="section-title">COLLECTION PRIORITY</h3>
     <div class="apple-list">
-        <a href="#" class="list-item flex-column flex-md-row align-items-start align-items-md-center">
+        {% for priority in priorities %}
+        <a href="/api/v1/customers/{{ priority.customer.id }}/" class="list-item flex-column flex-md-row align-items-start align-items-md-center">
             <div class="mb-3 mb-md-0">
-                <div class="item-title">Rahim Traders</div>
-                <div class="item-subtitle">Overdue for 12 days • High Risk</div>
+                <div class="item-title">{{ priority.customer.name }}</div>
+                <div class="item-subtitle">Priority: {{ priority.get_level_display }} • Updated recently</div>
             </div>
             <div class="d-flex align-items-center gap-4 ms-md-auto w-100 w-md-auto justify-content-between justify-content-md-end">
-                <div style="color: var(--brand-red); font-weight: 700; font-size: 18px;">৳12,400</div>
-                <div class="apple-btn">Contact</div>
+                <div style="color: var(--brand-red); font-weight: 700; font-size: 18px;">৳{{ priority.customer.credit_account.current_balance|floatformat:0 }}</div>
+                <div class="apple-btn">Call Now</div>
             </div>
         </a>
-        <a href="#" class="list-item flex-column flex-md-row align-items-start align-items-md-center">
-            <div class="mb-3 mb-md-0">
-                <div class="item-title">Kabul Store</div>
-                <div class="item-subtitle">Overdue for 8 days • Medium Risk</div>
-            </div>
-            <div class="d-flex align-items-center gap-4 ms-md-auto w-100 w-md-auto justify-content-between justify-content-md-end">
-                <div style="color: var(--brand-red); font-weight: 700; font-size: 18px;">৳8,200</div>
-                <div class="apple-btn">Contact</div>
-            </div>
-        </a>
+        {% empty %}
+        <div style="padding: 40px; text-align: center; color: var(--text-secondary);">
+            <p>No critical collections detected today. Great job!</p>
+        </div>
+        {% endfor %}
     </div>
 </div>
 
 <footer style="margin-top: 60px; padding-bottom: 40px; text-align: center; color: var(--text-secondary); font-size: 12px; font-weight: 500; opacity: 0.6;">
-    🇧🇩 BakiFlow v1.0 • Smarter SME Credit Intelligence
+    🇧🇩 BakiFlow v1.0 • Built with Intelligence for SMEs
 </footer>
 {% endblock %}

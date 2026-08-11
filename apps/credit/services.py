@@ -32,6 +32,10 @@ def record_credit_sale(business, customer, amount, sale_date, due_date, descript
         user=user,
         content_object=sale
     )
+
+    # Update Intelligence Scores
+    from apps.intelligence.services.collection_priority import calculate_collection_priority
+    calculate_collection_priority(customer)
     
     return sale
 
@@ -103,5 +107,11 @@ def record_payment(business, customer, amount, payment_date, method, reference_n
         user=user,
         content_object=payment
     )
+    
+    # Update Intelligence Scores
+    from apps.intelligence.services.reliability import calculate_reliability_score
+    from apps.intelligence.services.collection_priority import calculate_collection_priority
+    calculate_reliability_score(customer)
+    calculate_collection_priority(customer)
     
     return payment
