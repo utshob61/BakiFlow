@@ -1,0 +1,228 @@
+/* BakiFlow Fintech System CSS v2.3 - High Integrity Design */
+
+:root {
+    /* Light Theme Base */
+    --bg-main: #f5f5f7;
+    --bg-card: #ffffff;
+    --bg-input: #f2f2f7;
+    --text-primary: #1d1d1f;
+    --text-secondary: #86868b;
+    --brand-blue: #0071e3;
+    --brand-green: #34c759;
+    --brand-red: #ff3b30;
+    --brand-orange: #ff9500;
+    --border-color: rgba(0,0,0,0.08);
+    --card-shadow: 0 8px 30px rgba(0,0,0,0.04);
+    --nav-bg: rgba(255, 255, 255, 0.8);
+}
+
+[data-theme="dark"] {
+    /* Dark Fintech Theme */
+    --bg-main: #0b1120;
+    --bg-card: #111827;
+    --bg-input: #1f2937;
+    --text-primary: #ffffff;
+    --text-secondary: #9ca3af;
+    --brand-blue: #3b82f6;
+    --brand-green: #10b981;
+    --brand-red: #ef4444;
+    --brand-orange: #f59e0b;
+    --border-color: rgba(255, 255, 255, 0.1);
+    --card-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    --nav-bg: rgba(11, 17, 32, 0.8);
+}
+
+body {
+    background-color: var(--bg-main);
+    color: var(--text-primary);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    margin: 0;
+    -webkit-font-smoothing: antialiased;
+    padding-top: 64px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* --- NAVIGATION --- */
+.apple-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 64px;
+    background: var(--nav-bg);
+    backdrop-filter: saturate(180%) blur(20px);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    border-bottom: 1px solid var(--border-color);
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 24px;
+}
+
+.nav-brand {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--text-primary) !important;
+    text-decoration: none;
+    letter-spacing: -0.02em;
+}
+
+.nav-links {
+    display: flex;
+    gap: 24px;
+    align-items: center;
+}
+
+.nav-link {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-secondary) !important;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.nav-link:hover, .nav-link.active-page {
+    color: var(--brand-blue) !important;
+    opacity: 1;
+}
+
+/* --- LANDING / LOGIN PAGE --- */
+.landing-wrapper {
+    display: flex;
+    min-height: calc(100vh - 64px);
+    max-width: 1200px;
+    margin: 0 auto;
+    align-items: center;
+    padding: 40px 20px;
+}
+
+.landing-left { flex: 1.2; padding-right: 60px; }
+.landing-right { flex: 1; display: flex; justify-content: center; }
+
+@media (max-width: 1024px) {
+    .landing-wrapper { flex-direction: column; text-align: center; padding-top: 40px; }
+    .landing-left { padding-right: 0; margin-bottom: 40px; }
+}
+
+.logo-area { display: flex; align-items: center; gap: 12px; margin-bottom: 48px; }
+.logo-box { width: 44px; height: 44px; background: var(--brand-blue); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 20px; color: white; }
+.brand-name { font-size: 24px; font-weight: 700; }
+
+.hero-title { font-size: 52px; font-weight: 800; line-height: 1.1; margin-bottom: 24px; letter-spacing: -0.04em; }
+.hero-highlight { color: var(--brand-blue); }
+.hero-description { color: var(--text-secondary); font-size: 18px; line-height: 1.6; margin-bottom: 48px; }
+
+.feature-list { display: flex; flex-direction: column; gap: 24px; }
+.feature-item { display: flex; align-items: flex-start; gap: 16px; text-align: left; }
+.feature-icon { width: 40px; height: 40px; background: rgba(59, 130, 246, 0.1); color: var(--brand-blue); border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 16px; }
+
+/* --- LOGIN CARD --- */
+.login-card {
+    background: var(--bg-card);
+    width: 100%;
+    max-width: 440px;
+    border-radius: 28px;
+    padding: 48px;
+    border: 1px solid var(--border-color);
+    box-shadow: var(--card-shadow);
+}
+
+.login-icon-box { width: 56px; height: 56px; background: rgba(59, 130, 246, 0.1); border-radius: 18px; display: flex; align-items: center; justify-content: center; margin: 0 auto 24px; color: var(--brand-blue); font-size: 22px; }
+
+.input-wrapper { position: relative; display: flex; align-items: center; }
+.input-icon { position: absolute; left: 16px; color: var(--text-secondary); pointer-events: none; }
+.form-control-custom {
+    width: 100%;
+    background: var(--bg-input);
+    border: 1px solid var(--border-color);
+    border-radius: 14px;
+    padding: 14px 16px 14px 48px;
+    color: var(--text-primary);
+    font-size: 15px;
+    transition: all 0.2s;
+}
+.form-control-custom:focus { outline: none; border-color: var(--brand-blue); background: var(--bg-card); box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1); }
+
+/* --- DASHBOARD STATS --- */
+.stat-card-fintech {
+    background: var(--bg-card);
+    border-radius: 24px;
+    padding: 28px;
+    border: 1px solid var(--border-color);
+    box-shadow: var(--card-shadow);
+    transition: transform 0.3s ease;
+}
+.stat-card-fintech:hover { transform: translateY(-5px); }
+.stat-header { color: var(--text-secondary); font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 12px; }
+.stat-value-large { font-size: 44px; font-weight: 800; letter-spacing: -0.05em; margin: 0; }
+
+/* --- ACTION ITEMS --- */
+.action-item {
+    background: var(--bg-card);
+    border-radius: 24px;
+    padding: 24px;
+    text-align: center;
+    text-decoration: none;
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+.action-item:hover { transform: translateY(-5px); border-color: var(--brand-blue); box-shadow: var(--card-shadow); }
+
+/* --- LISTS --- */
+.apple-list { background: var(--bg-card); border-radius: 24px; border: 1px solid var(--border-color); overflow: hidden; box-shadow: var(--card-shadow); }
+.list-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 28px;
+    border-bottom: 1px solid var(--border-color);
+    text-decoration: none !important;
+    color: var(--text-primary) !important;
+    transition: background 0.2s;
+}
+.list-item:hover { background: var(--bg-input); }
+.list-item:last-child { border-bottom: none; }
+
+/* --- BUTTONS --- */
+.apple-btn {
+    background: var(--brand-blue);
+    color: white !important;
+    border-radius: 980px;
+    padding: 10px 24px;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    border: none;
+    transition: all 0.2s;
+    cursor: pointer;
+}
+.apple-btn:hover { opacity: 0.9; transform: scale(1.02); }
+
+/* --- MISC --- */
+.section-title { font-size: 22px; font-weight: 800; margin: 48px 0 20px 0; letter-spacing: -0.03em; }
+.stat-label { font-size: 11px; font-weight: 700; color: var(--text-secondary); text-transform: uppercase; }
+
+/* Grid Fixes */
+.dashboard-row { display: flex; flex-wrap: wrap; margin: 0 -12px; }
+.dashboard-col { padding: 0 12px; margin-bottom: 24px; flex: 1; min-width: 300px; }
+
+@media (max-width: 768px) {
+    .dashboard-col { flex: 100%; }
+}

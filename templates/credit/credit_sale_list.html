@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block title %}BakiFlow | Credit Ledger{% endblock %}
+
+{% block content %}
+<div style="padding-top: 40px; padding-bottom: 60px;">
+    <div class="row align-items-end mb-4">
+        <div class="col">
+            <p style="color: var(--brand-blue); font-weight: 700; margin-bottom: 4px; font-size: 13px; text-transform: uppercase; letter-spacing: 0.05em;">Ledger</p>
+            <h1 style="font-size: 32px; margin: 0;">Credit Sales</h1>
+        </div>
+    </div>
+
+    <div class="apple-list">
+        {% for sale in sales %}
+        <div class="list-item flex-column flex-md-row align-items-start align-items-md-center">
+            <div style="display: flex; align-items: center; gap: 20px;" class="mb-3 mb-md-0">
+                <div class="action-icon-wrapper" style="background: rgba(245, 158, 11, 0.1); color: var(--brand-orange); margin: 0; width: 44px; height: 44px; border-radius: 12px; font-size: 18px;">
+                    <i class="fa-solid fa-file-invoice-dollar"></i>
+                </div>
+                <div>
+                    <div class="item-title">{{ sale.customer.name }}</div>
+                    <div class="item-subtitle">{{ sale.sale_date|date:"M d, Y" }} • Due: {{ sale.due_date|date:"M d" }}</div>
+                </div>
+            </div>
+            <div class="d-flex align-items-center gap-4 ms-md-auto w-100 w-md-auto justify-content-between justify-content-md-end flex-wrap">
+                <div style="text-align: right;">
+                    <div class="stat-label" style="margin-bottom: 2px;">Total</div>
+                    <div style="font-weight: 600;">৳{{ sale.amount|floatformat:0 }}</div>
+                </div>
+                <div style="text-align: right;">
+                    <div class="stat-label" style="margin-bottom: 2px;">Remaining</div>
+                    <div style="font-weight: 700; color: {% if sale.remaining_balance > 0 %}var(--brand-red){% else %}var(--brand-green){% endif %};">
+                        ৳{{ sale.remaining_balance|floatformat:0 }}
+                    </div>
+                </div>
+                <div style="text-align: right;">
+                    <span style="font-size: 11px; font-weight: 700; text-transform: uppercase; padding: 4px 12px; border-radius: 20px; background: rgba(255,255,255,0.05); color: var(--text-secondary);">
+                        {{ sale.get_status_display }}
+                    </span>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div style="padding: 60px; text-align: center; color: var(--text-secondary);">
+            <i class="fa-solid fa-folder-open fa-3x mb-3 opacity-20"></i>
+            <p>No credit sales records found.</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

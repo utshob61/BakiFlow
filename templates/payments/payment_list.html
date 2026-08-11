@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block title %}BakiFlow | Payment History{% endblock %}
+
+{% block content %}
+<div style="padding-top: 40px; padding-bottom: 60px;">
+    <div class="row align-items-end mb-4">
+        <div class="col">
+            <p style="color: var(--brand-blue); font-weight: 700; margin-bottom: 4px; font-size: 13px; text-transform: uppercase; letter-spacing: 0.05em;">Transactions</p>
+            <h1 style="font-size: 32px; margin: 0;">Payment Records</h1>
+        </div>
+    </div>
+
+    <div class="apple-list">
+        {% for payment in payments %}
+        <div class="list-item flex-column flex-md-row align-items-start align-items-md-center">
+            <div style="display: flex; align-items: center; gap: 20px;" class="mb-3 mb-md-0">
+                <div class="action-icon-wrapper" style="background: rgba(16, 185, 129, 0.1); color: var(--brand-green); margin: 0; width: 44px; height: 44px; border-radius: 12px; font-size: 18px;">
+                    <i class="fa-solid fa-receipt"></i>
+                </div>
+                <div>
+                    <div class="item-title">{{ payment.customer.name }}</div>
+                    <div class="item-subtitle">{{ payment.payment_date|date:"M d, Y • H:i" }}</div>
+                </div>
+            </div>
+            <div class="d-flex align-items-center gap-4 ms-md-auto w-100 w-md-auto justify-content-between justify-content-md-end flex-wrap">
+                <div style="text-align: right;">
+                    <div class="stat-label" style="margin-bottom: 2px;">Method</div>
+                    <div style="font-size: 14px; font-weight: 500;">{{ payment.get_method_display }}</div>
+                </div>
+                <div style="text-align: right;">
+                    <div class="stat-label" style="margin-bottom: 2px;">Amount</div>
+                    <div style="font-weight: 800; font-size: 20px; color: var(--brand-green);">
+                        + ৳{{ payment.amount|floatformat:0 }}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div style="padding: 60px; text-align: center; color: var(--text-secondary);">
+            <i class="fa-solid fa-clock-rotate-left fa-3x mb-3 opacity-20"></i>
+            <p>No payment history found.</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

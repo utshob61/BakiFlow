@@ -1,0 +1,9 @@
+django>=5.0,<5.1
+django-environ
+psycopg2-binary
+djangorestframework
+django-filter
+django-cors-headers
+whitenoise
+gunicorn
+python-dateutil

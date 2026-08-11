@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="alert alert-warning">
+    <h4>No Business Found</h4>
+    <p>You are not associated with any business.</p>
+    {% if is_admin %}
+        <p>As an administrator, you should create a business in the <a href="/admin/">Admin Panel</a> and add yourself as a member.</p>
+    {% else %}
+        <p>Please contact an administrator to be added to a business.</p>
+    {% endif %}
+    <p>Try logging in with the demo account: <strong>owner</strong> / <strong>password123</strong></p>
+</div>
+{% endblock %}
