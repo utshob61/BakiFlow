@@ -1,21 +1,21 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}BakiFlow | Sign In{% endblock %}
+{% block title %}BakiFlow | Business Access{% endblock %}
 
 {% block content %}
 <div class="landing-wrapper">
-    <!-- Left Side: Content & Features -->
+    <!-- Branding Section -->
     <div class="landing-left d-none d-lg-block">
-        <div class="logo-area">
-            <div class="logo-box">
+        <div class="logo-area" style="width: 100%;">
+            <div class="logo-box" style="flex-shrink: 0;">
                 <i class="fa-solid fa-layer-group"></i>
             </div>
-            <div>
+            <div style="flex-grow: 1;">
                 <div class="brand-name">BakiFlow</div>
-                <div style="color: var(--text-secondary); font-size: 13px; font-weight: 500; margin-top: 2px;">Smarter Credit. Stronger Business.</div>
+                <div style="color: var(--text-secondary); font-size: 13px; font-weight: 500; margin-top: 2px;">Receivables Intelligence for SMEs</div>
             </div>
-            <div style="margin-left: auto; background: var(--bg-card); border: 1px solid var(--border-color); padding: 6px 14px; border-radius: 20px; font-size: 11px; color: var(--text-secondary); display: flex; align-items: center; gap: 8px;">
+            <div style="background: var(--bg-card); border: 1px solid var(--border-color); padding: 6px 14px; border-radius: 20px; font-size: 11px; color: var(--text-secondary); display: inline-flex; align-items: center; gap: 8px; white-space: nowrap; flex-shrink: 0; height: fit-content;">
                 <span style="color: var(--brand-green); font-size: 8px;">●</span> BDT | বাংলা
             </div>
         </div>
@@ -27,81 +27,85 @@
         </h1>
 
         <p class="hero-description">
-            BakiFlow transitions Bangladeshi SMEs from informal notebooks to high-integrity, data-driven financial intelligence.
+            BakiFlow provides high-integrity credit ledger management for Bangladeshi traders, transitioning you from informal notebooks to structured financial intelligence.
         </p>
 
-        <div class="feature-list">
-            <div class="feature-item">
-                <div class="feature-icon"><i class="fa-solid fa-users"></i></div>
-                <div class="feature-text">
-                    <h4 style="margin: 0; font-size: 15px;">Customer Credit Management</h4>
-                    <p style="margin: 4px 0 0; font-size: 13px;">Automated tracking of informal credit ledgers.</p>
+        <div class="feature-list" style="display: flex; flex-direction: column; gap: 24px;">
+            <div class="feature-item" style="display: flex; align-items: flex-start; gap: 16px;">
+                <div class="action-icon-wrapper" style="background: rgba(59, 130, 246, 0.1); color: var(--brand-blue); width: 44px; height: 44px; border-radius: 12px; flex-shrink: 0;"><i class="fa-solid fa-users"></i></div>
+                <div>
+                    <h4 style="margin: 0; font-size: 15px;">Smart Credit Tracking</h4>
+                    <p style="margin: 4px 0 0; font-size: 13px; color: var(--text-secondary);">Automated ledgers for customer outstanding balances.</p>
                 </div>
             </div>
-            <div class="feature-item">
-                <div class="feature-icon"><i class="fa-solid fa-bolt"></i></div>
-                <div class="feature-text">
-                    <h4 style="margin: 0; font-size: 15px;">Smart Priority Engine</h4>
-                    <p style="margin: 4px 0 0; font-size: 13px;">Identify high-risk collections instantly.</p>
-                </div>
-            </div>
-            <div class="feature-item">
-                <div class="feature-icon"><i class="fa-solid fa-shield-check"></i></div>
-                <div class="feature-text">
-                    <h4 style="margin: 0; font-size: 15px;">Audit-Grade Reliability</h4>
-                    <p style="margin: 4px 0 0; font-size: 13px;">Atomic transactions and immutable event logs.</p>
+            <div class="feature-item" style="display: flex; align-items: flex-start; gap: 16px;">
+                <div class="action-icon-wrapper" style="background: rgba(52, 199, 89, 0.1); color: var(--brand-green); width: 44px; height: 44px; border-radius: 12px; flex-shrink: 0;"><i class="fa-solid fa-chart-line"></i></div>
+                <div>
+                    <h4 style="margin: 0; font-size: 15px;">Collection Analytics</h4>
+                    <p style="margin: 4px 0 0; font-size: 13px; color: var(--text-secondary);">Real-time metrics on collection rates and behavior.</p>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Right Side: Login Card -->
+    <!-- Auth Section -->
     <div class="landing-right">
-        <div class="login-card">
+        <div class="login-card shadow-lg">
             <div style="text-align: center; margin-bottom: 40px;">
-                <div class="login-icon-box">
+                <div class="action-icon-wrapper" style="background: rgba(59, 130, 246, 0.1); color: var(--brand-blue); width: 56px; height: 56px; border-radius: 18px; margin: 0 auto 20px; font-size: 24px;">
                     <i class="fa-solid fa-shield-halved"></i>
                 </div>
                 <h2 style="font-size: 28px; font-weight: 800; margin: 0 0 8px; letter-spacing: -0.04em;">Welcome Back</h2>
-                <p style="color: var(--text-secondary); font-size: 14px;">Log in to your business dashboard</p>
+                <p style="color: var(--text-secondary); font-size: 14px;">Sign in to your BakiFlow Dashboard</p>
             </div>
 
             <form method="post">
                 {% csrf_token %}
                 <div style="margin-bottom: 24px;">
-                    <label style="display: block; font-size: 11px; font-weight: 700; color: var(--text-secondary); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.05em;">Username</label>
-                    <div class="input-wrapper" style="border: 1px solid var(--border-color); border-radius: 14px; transition: border-color 0.2s;">
+                    <label for="id_username" style="display: block; font-size: 11px; font-weight: 700; color: var(--text-secondary); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.05em;">Username</label>
+                    <div class="input-wrapper">
                         <i class="fa-regular fa-user input-icon"></i>
-                        <input type="text" name="username" class="form-control-custom" style="background: transparent; border: none; padding-left: 48px;" placeholder="Enter username" required autofocus>
+                        <input type="text" name="username" id="id_username" class="form-control-custom" placeholder="Enter username" required autofocus>
                     </div>
                 </div>
 
                 <div style="margin-bottom: 24px;">
-                    <label style="display: block; font-size: 11px; font-weight: 700; color: var(--text-secondary); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.05em;">Password</label>
-                    <div class="input-wrapper" style="border: 1px solid var(--border-color); border-radius: 14px; transition: border-color 0.2s;">
+                    <label for="id_password" style="display: block; font-size: 11px; font-weight: 700; color: var(--text-secondary); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.05em;">Password</label>
+                    <div class="input-wrapper">
                         <i class="fa-solid fa-lock input-icon"></i>
-                        <input type="password" name="password" class="form-control-custom" style="background: transparent; border: none; padding-left: 48px;" placeholder="Enter password" required>
+                        <input type="password" name="password" id="id_password" class="form-control-custom" placeholder="Enter password" required>
                     </div>
                 </div>
 
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px; margin-top: -8px;">
-                    <div style="display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--text-secondary);">
-                        <input type="checkbox" id="remember" style="accent-color: var(--brand-blue); width: 15px; height: 15px; cursor: pointer;">
-                        <label for="remember" style="cursor: pointer; font-weight: 500;">Remember me</label>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px; margin-top: -12px; width: 100%;">
+                    <div style="display: flex; align-items: center; gap: 10px; font-size: 14px; color: var(--text-secondary);">
+                        <input type="checkbox" id="remember" style="accent-color: var(--brand-blue); width: 16px; height: 16px; cursor: pointer;">
+                        <label for="remember" style="cursor: pointer; font-weight: 500; margin: 0;">Remember me</label>
                     </div>
-                    <a href="#" class="forgot-link" style="font-size: 13px; font-weight: 600;">Reset Password?</a>
+                    <a href="#" class="forgot-link" style="font-size: 14px; font-weight: 600;">Forgot password?</a>
                 </div>
 
-                <button type="submit" class="btn-primary-fintech shadow-lg">
-                    Sign In <i class="fa-solid fa-chevron-right ms-2" style="font-size: 12px;"></i>
+                <button type="submit" class="btn-primary-fintech">
+                    Sign In <i class="fa-solid fa-chevron-right ms-2" style="font-size: 11px;"></i>
                 </button>
             </form>
 
-            <div class="divider">Secured Authentication</div>
+            <div class="divider">or continue with</div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 32px;">
+                <button type="button" class="social-btn">
+                    <svg width="18" height="18" viewBox="0 0 48 48"><path fill="#FFC107" d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12c0-6.627,5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24s8.955,20,20,20s20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z"/><path fill="#FF3D00" d="M6.306,14.691l6.571,4.819C14.655,15.108,18.961,12,24,12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C16.318,4,9.656,8.337,6.306,14.691z"/><path fill="#4CAF50" d="M24,44c5.166,0,9.86-1.977,13.409-5.192l-6.19-5.238C29.211,35.091,26.715,36,24,36c-5.202,0-9.619-3.317-11.401-7.961l-6.561,5.059C9.303,39.539,16.212,44,24,44z"/><path fill="#1976D2" d="M43.611,20.083H42V20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z"/></svg>
+                    Google
+                </button>
+                <button type="button" class="social-btn">
+                    <svg width="18" height="18" viewBox="0 0 23 23"><path fill="#f3f3f3" d="M0 0h11v11H0z"/><path fill="#f3f3f3" d="M12 0h11v11H12z"/><path fill="#f3f3f3" d="M0 12h11v11H0z"/><path fill="#f3f3f3" d="M12 12h11v11H12z"/></svg>
+                    Microsoft
+                </button>
+            </div>
 
             <div style="text-align: center; font-size: 14px;">
-                <span style="color: var(--text-secondary);">New to BakiFlow?</span>
-                <a href="#" style="color: var(--brand-blue); text-decoration: none; font-weight: 700; margin-left: 6px;">Register Business</a>
+                <span style="color: var(--text-secondary); font-weight: 500;">New business?</span>
+                <a href="#" style="color: var(--brand-blue); text-decoration: none; font-weight: 700; margin-left: 6px;">Register Now</a>
             </div>
         </div>
     </div>
@@ -109,7 +113,7 @@
 
 <div style="position: fixed; bottom: 32px; left: 50%; transform: translateX(-50%); color: var(--text-secondary); font-size: 11px; display: flex; align-items: center; gap: 8px; opacity: 0.5;" class="d-none d-lg-flex">
     <i class="fa-solid fa-circle-check text-brand-green" style="font-size: 10px;"></i>
-    Verified Enterprise Security Platform
+    BakiFlow v1.0 • Built for SMEs in Bangladesh
 </div>
 {% endblock %}
 
@@ -118,7 +122,5 @@
     .apple-nav { display: none; }
     body { padding-top: 0; }
     .container { max-width: none; padding: 0; }
-    /* Override for focus state */
-    .input-wrapper:focus-within { border-color: var(--brand-blue) !important; box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1); }
 </style>
 {% endblock %}

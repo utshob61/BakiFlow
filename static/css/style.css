@@ -1,4 +1,4 @@
-/* BakiFlow Fintech System CSS v2.3 - High Integrity Design */
+/* BakiFlow Fintech System CSS v1.0 - Production Grade */
 
 :root {
     /* Light Theme Base */
@@ -14,6 +14,7 @@
     --border-color: rgba(0,0,0,0.08);
     --card-shadow: 0 8px 30px rgba(0,0,0,0.04);
     --nav-bg: rgba(255, 255, 255, 0.8);
+    --input-focus: rgba(0, 113, 227, 0.1);
 }
 
 [data-theme="dark"] {
@@ -30,6 +31,7 @@
     --border-color: rgba(255, 255, 255, 0.1);
     --card-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
     --nav-bg: rgba(11, 17, 32, 0.8);
+    --input-focus: rgba(59, 130, 246, 0.1);
 }
 
 body {
@@ -49,13 +51,12 @@ body {
     left: 0;
     right: 0;
     height: 64px;
-    background: var(--nav-bg);
-    backdrop-filter: saturate(180%) blur(20px);
-    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    background: var(--bg-main);
     border-bottom: 1px solid var(--border-color);
     z-index: 2000;
     display: flex;
     align-items: center;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .nav-container {
@@ -88,6 +89,7 @@ body {
     color: var(--text-secondary) !important;
     text-decoration: none;
     transition: all 0.2s ease;
+    opacity: 0.8;
 }
 
 .nav-link:hover, .nav-link.active-page {
@@ -111,21 +113,14 @@ body {
 @media (max-width: 1024px) {
     .landing-wrapper { flex-direction: column; text-align: center; padding-top: 40px; }
     .landing-left { padding-right: 0; margin-bottom: 40px; }
+    .hero-title { font-size: 42px !important; }
 }
 
-.logo-area { display: flex; align-items: center; gap: 12px; margin-bottom: 48px; }
-.logo-box { width: 44px; height: 44px; background: var(--brand-blue); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 20px; color: white; }
-.brand-name { font-size: 24px; font-weight: 700; }
-
-.hero-title { font-size: 52px; font-weight: 800; line-height: 1.1; margin-bottom: 24px; letter-spacing: -0.04em; }
+.hero-title { font-size: 56px; font-weight: 800; line-height: 1.1; margin-bottom: 24px; letter-spacing: -0.04em; }
 .hero-highlight { color: var(--brand-blue); }
 .hero-description { color: var(--text-secondary); font-size: 18px; line-height: 1.6; margin-bottom: 48px; }
 
-.feature-list { display: flex; flex-direction: column; gap: 24px; }
-.feature-item { display: flex; align-items: flex-start; gap: 16px; text-align: left; }
-.feature-icon { width: 40px; height: 40px; background: rgba(59, 130, 246, 0.1); color: var(--brand-blue); border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 16px; }
-
-/* --- LOGIN CARD --- */
+/* --- FORMS & INPUTS --- */
 .login-card {
     background: var(--bg-card);
     width: 100%;
@@ -134,71 +129,69 @@ body {
     padding: 48px;
     border: 1px solid var(--border-color);
     box-shadow: var(--card-shadow);
+    transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
-.login-icon-box { width: 56px; height: 56px; background: rgba(59, 130, 246, 0.1); border-radius: 18px; display: flex; align-items: center; justify-content: center; margin: 0 auto 24px; color: var(--brand-blue); font-size: 22px; }
-
-.input-wrapper { position: relative; display: flex; align-items: center; }
-.input-icon { position: absolute; left: 16px; color: var(--text-secondary); pointer-events: none; }
-.form-control-custom {
-    width: 100%;
-    background: var(--bg-input);
+.input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
     border: 1px solid var(--border-color);
     border-radius: 14px;
+    background: var(--bg-input);
+    transition: all 0.2s ease;
+}
+
+.input-wrapper:focus-within {
+    border-color: var(--brand-blue);
+    background: var(--bg-card);
+    box-shadow: 0 0 0 4px var(--input-focus);
+}
+
+.input-icon {
+    position: absolute;
+    left: 16px;
+    color: var(--text-secondary);
+    pointer-events: none;
+}
+
+.form-control-custom {
+    width: 100%;
+    background: transparent;
+    border: none;
     padding: 14px 16px 14px 48px;
     color: var(--text-primary);
     font-size: 15px;
-    transition: all 0.2s;
+    outline: none;
 }
-.form-control-custom:focus { outline: none; border-color: var(--brand-blue); background: var(--bg-card); box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1); }
-
-/* --- DASHBOARD STATS --- */
-.stat-card-fintech {
-    background: var(--bg-card);
-    border-radius: 24px;
-    padding: 28px;
-    border: 1px solid var(--border-color);
-    box-shadow: var(--card-shadow);
-    transition: transform 0.3s ease;
-}
-.stat-card-fintech:hover { transform: translateY(-5px); }
-.stat-header { color: var(--text-secondary); font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 12px; }
-.stat-value-large { font-size: 44px; font-weight: 800; letter-spacing: -0.05em; margin: 0; }
-
-/* --- ACTION ITEMS --- */
-.action-item {
-    background: var(--bg-card);
-    border-radius: 24px;
-    padding: 24px;
-    text-align: center;
-    text-decoration: none;
-    color: var(--text-primary);
-    border: 1px solid var(--border-color);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
-}
-.action-item:hover { transform: translateY(-5px); border-color: var(--brand-blue); box-shadow: var(--card-shadow); }
-
-/* --- LISTS --- */
-.apple-list { background: var(--bg-card); border-radius: 24px; border: 1px solid var(--border-color); overflow: hidden; box-shadow: var(--card-shadow); }
-.list-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px 28px;
-    border-bottom: 1px solid var(--border-color);
-    text-decoration: none !important;
-    color: var(--text-primary) !important;
-    transition: background 0.2s;
-}
-.list-item:hover { background: var(--bg-input); }
-.list-item:last-child { border-bottom: none; }
 
 /* --- BUTTONS --- */
+.btn-primary-fintech {
+    width: 100%;
+    background: var(--brand-blue);
+    color: white !important;
+    border: none;
+    padding: 16px;
+    border-radius: 14px;
+    font-weight: 700;
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: all 0.2s ease;
+    box-shadow: 0 10px 20px -5px rgba(59, 130, 246, 0.4);
+}
+
+.btn-primary-fintech:hover {
+    background: #2563eb;
+    transform: translateY(-2px);
+    box-shadow: 0 15px 25px -5px rgba(59, 130, 246, 0.5);
+}
+
+.btn-primary-fintech:active { transform: scale(0.98); }
+
 .apple-btn {
     background: var(--brand-blue);
     color: white !important;
@@ -213,16 +206,33 @@ body {
     transition: all 0.2s;
     cursor: pointer;
 }
+
 .apple-btn:hover { opacity: 0.9; transform: scale(1.02); }
 
-/* --- MISC --- */
-.section-title { font-size: 22px; font-weight: 800; margin: 48px 0 20px 0; letter-spacing: -0.03em; }
-.stat-label { font-size: 11px; font-weight: 700; color: var(--text-secondary); text-transform: uppercase; }
-
-/* Grid Fixes */
-.dashboard-row { display: flex; flex-wrap: wrap; margin: 0 -12px; }
-.dashboard-col { padding: 0 12px; margin-bottom: 24px; flex: 1; min-width: 300px; }
-
-@media (max-width: 768px) {
-    .dashboard-col { flex: 100%; }
+/* --- LISTS & CARDS --- */
+.stat-card-fintech {
+    background: var(--bg-card);
+    border-radius: 24px;
+    padding: 28px;
+    border: 1px solid var(--border-color);
+    box-shadow: var(--card-shadow);
+    transition: transform 0.3s ease;
 }
+
+.apple-list { background: var(--bg-card); border-radius: 24px; border: 1px solid var(--border-color); overflow: hidden; box-shadow: var(--card-shadow); }
+
+.list-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 28px;
+    border-bottom: 1px solid var(--border-color);
+    text-decoration: none !important;
+    color: var(--text-primary) !important;
+    transition: background 0.2s;
+}
+
+.list-item:hover { background: var(--bg-input); }
+.list-item:last-child { border-bottom: none; }
+
+.action-icon-wrapper { width: 52px; height: 52px; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 24px; }

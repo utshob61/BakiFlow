@@ -93,7 +93,7 @@ BakiFlow utilizes a **Clean Service-Oriented Architecture** within a modular Dja
 ### Installation
 1. **Clone & Enter:**
    ```bash
-   git clone <your-repo-url>
+   git clone <https://github.com/utshob61/BakiFlow>
    cd BakiFlow
    ```
 2. **Setup Environment:**
