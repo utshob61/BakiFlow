@@ -19,7 +19,7 @@ from django.http import HttpResponse
 def health_check(request):
     return HttpResponse("BakiFlow is running!")
 
-from apps.accounts.views import logout_view
+from apps.accounts.views import logout_view, register_view
 
 urlpatterns = [
     path('health/', health_check),
@@ -32,4 +32,5 @@ urlpatterns = [
     path('api-auth/', include('rest_framework.urls')),
     path('accounts/login/', auth_views.LoginView.as_view(), name='login'),
     path('accounts/logout/', logout_view, name='logout'),
+    path('accounts/register/', register_view, name='register'),
 ]

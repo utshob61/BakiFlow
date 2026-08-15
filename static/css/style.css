@@ -70,11 +70,21 @@ body {
 }
 
 .nav-brand {
-    font-size: 22px;
-    font-weight: 700;
+    font-size: 24px;
+    font-weight: 800;
     color: var(--text-primary) !important;
     text-decoration: none;
-    letter-spacing: -0.02em;
+    letter-spacing: -0.04em;
+}
+
+.brand-name {
+    font-size: 26px;
+    font-weight: 800;
+    letter-spacing: -0.04em;
+}
+
+.logo-highlight {
+    color: var(--brand-blue);
 }
 
 .nav-links {
@@ -236,3 +246,115 @@ body {
 .list-item:last-child { border-bottom: none; }
 
 .action-icon-wrapper { width: 52px; height: 52px; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 24px; }
+
+/* --- SOCIAL BUTTONS & DIVIDER --- */
+.divider {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: var(--text-secondary);
+    font-size: 13px;
+    margin: 32px 0;
+    font-weight: 500;
+}
+
+.divider::before, .divider::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.divider:not(:empty)::before { margin-right: 16px; }
+.divider:not(:empty)::after { margin-left: 16px; }
+
+.social-btn {
+    background: var(--bg-input);
+    border: 1px solid var(--border-color);
+    padding: 12px;
+    border-radius: 14px;
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.social-btn:hover {
+    background: #2d3748;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.forgot-link {
+    color: var(--brand-blue) !important;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 13px;
+}
+
+.forgot-link:hover {
+    text-decoration: underline;
+}
+
+/* --- TYPOGRAPHY & LABELS --- */
+.stat-label {
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 4px;
+    display: block;
+}
+
+.item-title {
+    font-weight: 700;
+    font-size: 17px;
+    margin-bottom: 2px;
+    color: var(--text-primary);
+}
+
+.item-subtitle {
+    color: var(--text-secondary);
+    font-size: 13px;
+    font-weight: 500;
+}
+
+/* --- GRID & ACTIONS --- */
+.action-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-top: 10px;
+}
+
+@media (max-width: 768px) {
+    .action-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+.action-item {
+    background: var(--bg-card);
+    border-radius: 20px;
+    padding: 24px;
+    text-align: center;
+    text-decoration: none !important;
+    color: var(--text-primary) !important;
+    border: 1px solid var(--border-color);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.action-item:hover {
+    transform: translateY(-5px);
+    border-color: var(--brand-blue);
+    box-shadow: var(--card-shadow);
+    background: var(--bg-input);
+}

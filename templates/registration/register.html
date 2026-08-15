@@ -1,0 +1,117 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}BakiFlow | Register Business{% endblock %}
+
+{% block content %}
+<div class="landing-wrapper">
+    <!-- Left Side: Same as Login for Consistency -->
+    <div class="landing-left d-none d-lg-block">
+        <div class="logo-area" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 60px;">
+            <div style="display: flex; align-items: center; gap: 14px;">
+                <div class="logo-box">
+                    <i class="fa-solid fa-layer-group"></i>
+                </div>
+                <div>
+                    <div class="brand-name" style="font-size: 26px;">Baki<span class="logo-highlight">Flow</span></div>
+                    <div style="color: var(--text-secondary); font-size: 13px; font-weight: 500; margin-top: 2px;">Receivables Intelligence for SMEs</div>
+                </div>
+            </div>
+        </div>
+
+        <h1 class="hero-title">
+            Grow Your Business.<br>
+            <span class="hero-highlight">Join BakiFlow Today.</span>
+        </h1>
+
+        <p class="hero-description">
+            Experience the future of SME receivables management. Set up your business profile in less than a minute.
+        </p>
+
+        <div class="feature-list" style="display: flex; flex-direction: column; gap: 24px;">
+            <div class="feature-item" style="display: flex; align-items: flex-start; gap: 16px;">
+                <div class="action-icon-wrapper" style="background: rgba(16, 185, 129, 0.1); color: var(--brand-green); width: 44px; height: 44px; border-radius: 12px; flex-shrink: 0;"><i class="fa-solid fa-check"></i></div>
+                <div>
+                    <h4 style="margin: 0; font-size: 15px;">Free Onboarding</h4>
+                    <p style="margin: 4px 0 0; font-size: 13px; color: var(--text-secondary);">Start managing your credit sales immediately.</p>
+                </div>
+            </div>
+            <div class="feature-item" style="display: flex; align-items: flex-start; gap: 16px;">
+                <div class="action-icon-wrapper" style="background: rgba(59, 130, 246, 0.1); color: var(--brand-blue); width: 44px; height: 44px; border-radius: 12px; flex-shrink: 0;"><i class="fa-solid fa-rocket"></i></div>
+                <div>
+                    <h4 style="margin: 0; font-size: 15px;">Fast Setup</h4>
+                    <p style="margin: 4px 0 0; font-size: 13px; color: var(--text-secondary);">Register and add your first customer in seconds.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Right Side: Registration Card -->
+    <div class="landing-right">
+        <div class="login-card shadow-lg" style="max-width: 500px;">
+            <div style="text-align: center; margin-bottom: 32px;">
+                <div class="action-icon-wrapper" style="background: rgba(16, 185, 129, 0.1); color: var(--brand-green); width: 56px; height: 56px; border-radius: 18px; margin: 0 auto 20px; font-size: 24px;">
+                    <i class="fa-solid fa-business-time"></i>
+                </div>
+                <h2 style="font-size: 28px; font-weight: 800; margin: 0 0 8px; letter-spacing: -0.04em;">Register Business</h2>
+                <p style="color: var(--text-secondary); font-size: 14px;">Create your BakiFlow account</p>
+            </div>
+
+            <form method="post" class="register-form">
+                {% csrf_token %}
+
+                {% for field in form %}
+                <div style="margin-bottom: 20px;">
+                    <label for="{{ field.id_for_label }}" style="display: block; font-size: 11px; font-weight: 700; color: var(--text-secondary); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.05em;">
+                        {{ field.label }}
+                    </label>
+                    <div class="input-wrapper">
+                        {% if field.name == 'business_name' %}
+                            <i class="fa-solid fa-building input-icon"></i>
+                        {% elif field.name == 'username' %}
+                            <i class="fa-regular fa-user input-icon"></i>
+                        {% elif field.name == 'email' %}
+                            <i class="fa-regular fa-envelope input-icon"></i>
+                        {% elif field.name == 'phone' %}
+                            <i class="fa-solid fa-phone input-icon"></i>
+                        {% elif 'password' in field.name %}
+                            <i class="fa-solid fa-lock input-icon"></i>
+                        {% else %}
+                            <i class="fa-solid fa-circle-info input-icon"></i>
+                        {% endif %}
+
+                        <input type="{% if 'password' in field.name %}password{% elif field.name == 'email' %}email{% else %}text{% endif %}" name="{{ field.name }}" id="{{ field.id_for_label }}" class="form-control-custom" placeholder="{{ field.label }}" required {% if field.name == 'business_name' %}autofocus{% endif %}>
+                    </div>
+                    {% if field.errors %}
+                        <div style="color: var(--brand-red); font-size: 12px; margin-top: 4px;">{{ field.errors.0 }}</div>
+                    {% endif %}
+                </div>
+                {% endfor %}
+
+                <button type="submit" class="btn-primary-fintech shadow-lg" style="margin-top: 10px;">
+                    Create Account <i class="fa-solid fa-chevron-right ms-2" style="font-size: 12px;"></i>
+                </button>
+            </form>
+
+            <div style="margin: 32px 0; border-bottom: 1px solid var(--border-color);"></div>
+
+            <div style="text-align: center; font-size: 14px;">
+                <span style="color: var(--text-secondary); font-weight: 500;">Already have an account?</span>
+                <a href="{% url 'login' %}" style="color: var(--brand-blue); text-decoration: none; font-weight: 700; margin-left: 6px;">Sign In</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    .apple-nav { display: none; }
+    body { padding-top: 0; }
+    .container { max-width: none; padding: 0; }
+    .input-wrapper:focus-within { border-color: var(--brand-blue) !important; box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1); }
+    /* Form override */
+    .register-form .input-wrapper { border: 1px solid var(--border-color); border-radius: 12px; transition: border-color 0.2s; }
+    .register-form .form-control-custom { background: transparent; border: none; padding-left: 48px; }
+</style>
+{% endblock %}

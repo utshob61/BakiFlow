@@ -5,12 +5,13 @@ BakiFlow is a production-grade financial platform engineered for Bangladeshi SME
 
 ---
 
-## 🌟 What's New in v1.0
-*   **🌓 Adaptive Dark Mode:** A sophisticated, Apple-inspired dark theme with zero-flash initialization.
-*   **📱 Mobile-First Perfection:** Fully responsive layout designed for the smartphone, the primary tool of SME owners.
-*   **🎨 Premium UI/UX:** Glassmorphism navigation, native-feel list views, and high-impact fintech typography.
-*   **🛍️ Customer Portal:** Dedicated secure portal for customers to track their own outstanding balances and transaction history.
-*   **⚡ Performance Boost:** Optimized static file delivery using WhiteNoise and instant theme state management.
+## 🌟 Key Highlights of v1.0
+*   **🌓 Adaptive Dark Mode:** A sophisticated, Apple-inspired dark theme with zero-flash initialization and persistent state management.
+*   **📱 Mobile-First Perfection:** Fully responsive layouts (stat cards, grids, and stackable lists) optimized for SME owners on the go.
+*   **🎨 High-End Design:** Glassmorphism navigation, native-feel iOS-style list views, and high-impact fintech typography (Inter Extra Bold).
+*   **🔐 Atomic Registration:** One-click business onboarding that creates an owner account and business profile in a single atomic transaction.
+*   **🛍️ Customer Portal:** Dedicated secure portal where customers can track their own Baki balances and personal transaction history.
+*   **⚡ Performance Optimized:** Versioned static assets and high-performance delivery using WhiteNoise.
 
 ---
 
@@ -48,39 +49,38 @@ BakiFlow utilizes a **Clean Service-Oriented Architecture** within a modular Dja
 | **Static Files** | WhiteNoise (High-performance delivery) |
 | **Styling** | Custom Apple-Fintech CSS (v1.0), Bootstrap 5 Grid |
 | **Logic** | Service-based Architecture (FIFO Allocation) |
-| **Security** | 256-bit SSL Ready, Atomic Transactions |
+| **Security** | 256-bit SSL Ready, Atomic Transactions, Tenant Isolation |
 
 ---
 
 ## 🚀 Core Features
 
 ### 1. High-Integrity Credit Ledger
-*   **FIFO Payment Allocation:** Payments automatically clear the oldest outstanding sales first.
-*   **Decimal Precision:** Zero floating-point errors. Every Paisa is accounted for using `Decimal` fields.
-*   **Overpayment Prevention:** Built-in validation prevents payments exceeding a customer's total outstanding balance.
+*   **FIFO Payment Allocation:** Automated payment matching against the oldest outstanding sales.
+*   **Monetary Precision:** Strict use of `Decimal` for all calculations—zero floating-point errors.
+*   **Overpayment Protection:** Real-time validation preventing payments beyond the current balance.
 
 ### 2. Collection Intelligence
-*   **Payment Reliability Score (0-100):** A behavioral metric based on on-time payment frequency and average delay days.
-*   **Collection Priority Engine:** Ranks overdue accounts (Critical, High, Medium, Low) to tell owners who to call today.
-*   **Reliability Progress Bars:** Instant visual indicators of customer trustworthiness in the directory.
+*   **Reliability Score (0-100):** Behavioral analysis based on historical payment consistency.
+*   **Priority Engine:** AI-powered ranking (Critical, High, Medium, Low) for daily collection tasks.
+*   **Visual Progress:** High-integrity reliability bars embedded directly in customer lists.
 
-### 3. SME Multi-Tenancy
-*   **Business Data Isolation:** Robust scoping ensures Business A can never access Business B's customers or financials.
-*   **Role-Based Access:** Support for Owners, Staff, and Customers with tailored dashboards.
+### 3. SME Enterprise Multi-Tenancy
+*   **Strict Isolation:** Business data is cryptographically and logically isolated between tenants.
+*   **Role Hierarchy:** Native support for Owners, Staff, Accountants, and Customers.
 
 ---
 
 ## 🔍 Intelligence Engines
 
 ### Payment Reliability Score
-- **On-time Payments (30 pts):** Percentage of sales settled before the due date.
-- **Consistency (20 pts):** Regularity of repayment behavior over 90 days.
-- **Delay Mean (20 pts):** Average number of days past due for late payments.
+- **On-time Payments (30 pts):** % of sales cleared before the due date.
+- **Consistency (20 pts):** Regularity of repayment behavior over the last 90 days.
+- **Delay Average (20 pts):** Mean days past due for late payments.
 
 ### Collection Priority Logic
-- **Amount Overdue:** Higher balances trigger higher priority levels.
-- **Duration:** Ranks accounts by the oldest unpaid invoice age.
-- **Behavior Trend:** Factors in the customer's recent Reliability Score.
+- **Amount & Duration:** Weights higher balances and older debts with higher priority.
+- **Behavioral Input:** Integrates the customer's reliability trend into the ranking.
 
 ---
 
@@ -88,12 +88,12 @@ BakiFlow utilizes a **Clean Service-Oriented Architecture** within a modular Dja
 
 ### Prerequisites
 *   Python 3.12+
-*   PostgreSQL (optional, defaults to SQLite for dev)
+*   PostgreSQL (Recommended)
 
 ### Installation
 1. **Clone & Enter:**
    ```bash
-   git clone <https://github.com/utshob61/BakiFlow>
+   git clone https://github.com/utshob61/BakiFlow.git
    cd BakiFlow
    ```
 2. **Setup Environment:**
@@ -103,7 +103,7 @@ BakiFlow utilizes a **Clean Service-Oriented Architecture** within a modular Dja
    pip install -r requirements.txt
    cp .env.example .env
    ```
-3. **Database & Demo Data:**
+3. **Database Initialization:**
    ```bash
    python manage.py migrate
    python manage.py seed_demo_data
@@ -118,26 +118,26 @@ BakiFlow utilizes a **Clean Service-Oriented Architecture** within a modular Dja
 ## 📖 API Documentation (V1)
 | Method | Endpoint | Description |
 | :--- | :--- | :--- |
-| `GET` | `/api/v1/customers/` | List business customers with reliability scores |
-| `POST` | `/api/v1/credit-sales/` | Log a new credit (Baki) transaction |
-| `POST` | `/api/v1/payments/` | Record cash reception & trigger FIFO allocation |
-| `GET` | `/api/v1/customers/export_csv/` | Generate exportable Baki ledger |
+| `GET` | `/api/v1/customers/` | List customers with intelligence metrics |
+| `POST` | `/api/v1/credit-sales/` | Record a new Baki transaction |
+| `POST` | `/api/v1/payments/` | Record collection & trigger FIFO matching |
+| `GET` | `/api/v1/customers/export_csv/` | Export high-integrity ledger as CSV |
 
 ---
 
-## 🛡 Security & Financial Integrity
-*   **Atomic Transactions:** Uses `transaction.atomic()` to ensure data consistency during allocation.
-*   **Tenant Isolation:** Middleware ensures all querysets are scoped to the authenticated user's business.
-*   **Audit Trail:** Immutable `CreditEvent` log for every single financial movement.
+## 🛡 Security & Integrity
+*   **Atomic Transactions:** Guaranteed ledger consistency using `transaction.atomic()`.
+*   **Tenant Scoping:** Automatic queryset filtering to prevent cross-business data leaks.
+*   **Audit Trail:** Immutable `CreditEvent` logs for every financial movement.
 
 ---
 
 ## 📈 Roadmap
-*   [ ] **AlphaSMS Integration:** Automatic overdue reminders via SMS.
-*   [ ] **WhatsApp Ledger:** Export and send customer statements via WhatsApp.
-*   [ ] **AI Forecasting:** Cash flow prediction using historical seasonal trends.
+*   [ ] **AlphaSMS Gateway:** Automated payment reminders via SMS.
+*   [ ] **WhatsApp Connect:** Direct sending of statements via WhatsApp.
+*   [ ] **Advanced Health:** Business-wide financial health scoring (0-100).
 
 ---
 
 ## 🇧🇩 Proudly Built for Bangladesh
-BakiFlow is localized for the unique SME ecosystem in Bangladesh, prioritizing simplicity, speed, and financial transparency.
+BakiFlow is localized for the unique SME ecosystem in Bangladesh, prioritizing simplicity, speed, and high-trust financial transparency.

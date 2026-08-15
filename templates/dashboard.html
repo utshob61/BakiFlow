@@ -18,7 +18,9 @@
         <div class="col-12 col-md-4">
             <div class="stat-card-fintech h-100">
                 <div class="stat-header">Total Receivables</div>
-                <div class="stat-value-large">৳{{ total_receivables|floatformat:0 }}</div>
+                <div class="stat-value-large" style="display: flex; align-items: baseline; gap: 4px;">
+                    <span style="font-size: 24px; font-weight: 600; opacity: 0.7;">৳</span>{{ total_receivables|floatformat:0 }}
+                </div>
                 <div style="font-size: 12px; color: var(--text-secondary); margin-top: 12px;">
                     <i class="fa-solid fa-chart-line text-brand-blue me-1"></i> Current Portfolio
                 </div>
@@ -27,7 +29,9 @@
         <div class="col-12 col-md-4">
             <div class="stat-card-fintech h-100" style="border-left: 4px solid var(--brand-red);">
                 <div class="stat-header">Overdue Amount</div>
-                <div class="stat-value-large" style="color: var(--brand-red);">৳{{ overdue_receivables|floatformat:0 }}</div>
+                <div class="stat-value-large" style="color: var(--brand-red); display: flex; align-items: baseline; gap: 4px;">
+                    <span style="font-size: 24px; font-weight: 600; opacity: 0.8;">৳</span>{{ overdue_receivables|floatformat:0 }}
+                </div>
                 <div style="font-size: 12px; color: var(--text-secondary); margin-top: 12px;">
                     Critical follow-up required
                 </div>
@@ -36,7 +40,9 @@
         <div class="col-12 col-md-4">
             <div class="stat-card-fintech h-100" style="border-left: 4px solid var(--brand-green);">
                 <div class="stat-header">Collected This Month</div>
-                <div class="stat-value-large" style="color: var(--brand-green);">৳{{ collected_this_month|floatformat:0 }}</div>
+                <div class="stat-value-large" style="color: var(--brand-green); display: flex; align-items: baseline; gap: 4px;">
+                    <span style="font-size: 24px; font-weight: 600; opacity: 0.8;">৳</span>{{ collected_this_month|floatformat:0 }}
+                </div>
                 <div style="font-size: 12px; color: var(--text-secondary); margin-top: 12px;">
                     <i class="fa-solid fa-check-circle text-brand-green me-1"></i> Month-to-date
                 </div>
@@ -45,39 +51,31 @@
     </div>
 
     <h3 class="section-title">QUICK ACTIONS</h3>
-    <div class="row g-3">
-        <div class="col-6 col-md-3">
-            <a href="{% url 'customer_list' %}" class="action-item">
-                <div class="action-icon-wrapper" style="background: rgba(37, 99, 235, 0.1); color: var(--brand-blue);">
-                    <i class="fa-solid fa-user-plus"></i>
-                </div>
-                <span style="font-weight: 600; font-size: 14px;">Customers</span>
-            </a>
-        </div>
-        <div class="col-6 col-md-3">
-            <a href="{% url 'credit_sale_list' %}" class="action-item">
-                <div class="action-icon-wrapper" style="background: rgba(245, 158, 11, 0.1); color: var(--brand-orange);">
-                    <i class="fa-solid fa-file-invoice-dollar"></i>
-                </div>
-                <span style="font-weight: 600; font-size: 14px;">Baki Ledger</span>
-            </a>
-        </div>
-        <div class="col-6 col-md-3">
-            <a href="{% url 'payment_list' %}" class="action-item">
-                <div class="action-icon-wrapper" style="background: rgba(16, 185, 129, 0.1); color: var(--brand-green);">
-                    <i class="fa-solid fa-hand-holding-dollar"></i>
-                </div>
-                <span style="font-weight: 600; font-size: 14px;">Collections</span>
-            </a>
-        </div>
-        <div class="col-6 col-md-3">
-            <a href="/api/v1/customers/export_csv/" class="action-item">
-                <div class="action-icon-wrapper" style="background: rgba(156, 163, 175, 0.1); color: var(--text-secondary);">
-                    <i class="fa-solid fa-file-export"></i>
-                </div>
-                <span style="font-weight: 600; font-size: 14px;">Export Data</span>
-            </a>
-        </div>
+    <div class="action-grid" style="display: grid !important;">
+        <a href="{% url 'customer_list' %}" class="action-item">
+            <div class="action-icon-wrapper" style="background: rgba(37, 99, 235, 0.15); color: var(--brand-blue);">
+                <i class="fa-solid fa-user-plus"></i>
+            </div>
+            <span style="font-weight: 600; font-size: 14px;">Add Customer</span>
+        </a>
+        <a href="{% url 'credit_sale_list' %}" class="action-item">
+            <div class="action-icon-wrapper" style="background: rgba(245, 158, 11, 0.15); color: var(--brand-orange);">
+                <i class="fa-solid fa-file-invoice-dollar"></i>
+            </div>
+            <span style="font-weight: 600; font-size: 14px;">Record Baki</span>
+        </a>
+        <a href="{% url 'payment_list' %}" class="action-item">
+            <div class="action-icon-wrapper" style="background: rgba(16, 185, 129, 0.15); color: var(--brand-green);">
+                <i class="fa-solid fa-hand-holding-dollar"></i>
+            </div>
+            <span style="font-weight: 600; font-size: 14px;">Receive Cash</span>
+        </a>
+        <a href="/api/v1/customers/export_csv/" class="action-item">
+            <div class="action-icon-wrapper" style="background: rgba(156, 163, 175, 0.15); color: var(--text-secondary);">
+                <i class="fa-solid fa-file-export"></i>
+            </div>
+            <span style="font-weight: 600; font-size: 14px;">Export CSV</span>
+        </a>
     </div>
 
     <h3 class="section-title">COLLECTION PRIORITY</h3>

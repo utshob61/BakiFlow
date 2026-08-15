@@ -37,20 +37,26 @@
             </div>
 
             <div class="d-flex align-items-center gap-5 ms-md-auto w-100 w-md-auto justify-content-between justify-content-md-end flex-wrap">
+                <!-- Behavioral Score -->
                 <div style="text-align: center;" class="d-none d-lg-block">
                     <div class="stat-label" style="margin-bottom: 4px;">Collection Score</div>
                     {% with score=customer.reliability_score.score %}
-                        <div style="display: flex; align-items: center; gap: 10px;">
-                            <div style="width: 60px; height: 6px; background: rgba(255,255,255,0.1); border-radius: 3px; overflow: hidden;">
-                                <div style="width: {{ score|default:0 }}%; height: 100%; background: {% if score > 70 %}var(--brand-green){% elif score > 40 %}var(--brand-orange){% else %}var(--brand-red){% endif %};"></div>
+                        {% if score %}
+                            <div style="display: flex; align-items: center; gap: 10px;">
+                                <div style="width: 60px; height: 6px; background: rgba(0,0,0,0.05); border-radius: 3px; overflow: hidden;">
+                                    <div style="width: {{ score }}%; height: 100%; background: {% if score > 70 %}var(--brand-green){% elif score > 40 %}var(--brand-orange){% else %}var(--brand-red){% endif %};"></div>
+                                </div>
+                                <span style="font-weight: 800; font-size: 14px; color: {% if score > 70 %}var(--brand-green){% elif score > 40 %}var(--brand-orange){% else %}var(--brand-red){% endif %};">
+                                    {{ score }}%
+                                </span>
                             </div>
-                            <span style="font-weight: 800; font-size: 14px; color: {% if score > 70 %}var(--brand-green){% elif score > 40 %}var(--brand-orange){% else %}var(--brand-red){% endif %};">
-                                {{ score|default:"—" }}{% if score %}%{% endif %}
-                            </span>
-                        </div>
+                        {% else %}
+                            <div style="font-size: 12px; font-weight: 600; color: var(--text-secondary); opacity: 0.6;">— New Customer —</div>
+                        {% endif %}
                     {% endwith %}
                 </div>
 
+                <!-- Outstanding Balance -->
                 <div style="text-align: right; min-width: 160px;">
                     <div class="stat-label" style="margin-bottom: 2px;">Outstanding</div>
                     <div style="font-weight: 800; font-size: 24px; letter-spacing: -0.02em; color: {% if customer.credit_account.current_balance > 0 %}var(--brand-red){% else %}var(--brand-green){% endif %};">
@@ -58,7 +64,8 @@
                     </div>
                 </div>
 
-                <a href="/api/v1/customers/{{ customer.id }}/" class="apple-btn" style="background: var(--bg-input); border: 1px solid var(--border-color); padding: 12px 24px; font-size: 13px;">
+                <!-- Action Button -->
+                <a href="/api/v1/customers/{{ customer.id }}/" class="apple-btn" style="background: var(--brand-blue); color: white !important; padding: 12px 24px; font-size: 13px; box-shadow: 0 4px 12px rgba(0, 113, 227, 0.2);">
                     Details
                 </a>
             </div>
