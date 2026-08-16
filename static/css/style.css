@@ -239,10 +239,17 @@ body {
     border-bottom: 1px solid var(--border-color);
     text-decoration: none !important;
     color: var(--text-primary) !important;
-    transition: background 0.2s;
+    transition: all 0.2s ease;
 }
 
-.list-item:hover { background: var(--bg-input); }
+.list-item:hover {
+    background: rgba(255, 255, 255, 0.02);
+    transform: scale(1.002);
+}
+
+[data-theme="dark"] .list-item:hover {
+    background: rgba(255, 255, 255, 0.03);
+}
 .list-item:last-child { border-bottom: none; }
 
 .action-icon-wrapper { width: 52px; height: 52px; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 24px; }

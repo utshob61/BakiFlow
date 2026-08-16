@@ -8,10 +8,10 @@
     <div class="row align-items-end mb-5">
         <div class="col">
             <p style="color: var(--brand-blue); font-weight: 700; margin-bottom: 4px; font-size: 13px; text-transform: uppercase; letter-spacing: 0.05em;">Directory</p>
-            <h1 style="font-size: 32px; margin: 0;">Business Customers</h1>
+            <h1 style="font-size: 36px; margin: 0; font-weight: 800; letter-spacing: -0.04em;">Business Customers</h1>
         </div>
         <div class="col-auto">
-            <a href="/api/v1/customers/export_csv/" class="apple-btn" style="background: var(--brand-green);">
+            <a href="/api/v1/customers/export_csv/" class="apple-btn" style="background: var(--brand-green); padding: 12px 24px;">
                 <i class="fa-solid fa-file-csv me-2"></i>Export CSV
             </a>
         </div>
@@ -19,17 +19,17 @@
 
     <div class="apple-list shadow-lg">
         {% for customer in customers %}
-        <div class="list-item flex-column flex-md-row align-items-start align-items-md-center">
+        <div class="list-item flex-column flex-md-row align-items-start align-items-md-center" style="padding: 24px 32px;">
             <div style="display: flex; align-items: center; gap: 24px;" class="mb-4 mb-md-0">
-                <div class="action-icon-wrapper" style="background: rgba(59, 130, 246, 0.1); color: var(--brand-blue); margin: 0; width: 52px; height: 52px; border-radius: 14px; font-size: 20px;">
+                <div class="action-icon-wrapper" style="background: rgba(59, 130, 246, 0.1); color: var(--brand-blue); margin: 0; width: 56px; height: 56px; border-radius: 16px; font-size: 22px;">
                     <i class="fa-solid fa-user-tie"></i>
                 </div>
                 <div>
-                    <div class="item-title" style="font-size: 18px; font-weight: 700;">{{ customer.name }}</div>
-                    <div class="item-subtitle">
-                        <i class="fa-solid fa-phone me-1" style="font-size: 11px;"></i> {{ customer.phone }}
-                        <span class="mx-2" style="opacity: 0.3;">•</span>
-                        <span style="font-weight: 700; color: {% if customer.status == 'ACTIVE' %}var(--brand-green){% else %}var(--brand-red){% endif %};">
+                    <div class="item-title" style="font-size: 20px; font-weight: 700; letter-spacing: -0.02em;">{{ customer.name }}</div>
+                    <div class="item-subtitle" style="font-size: 14px;">
+                        <i class="fa-solid fa-phone me-1" style="font-size: 11px; opacity: 0.7;"></i> {{ customer.phone }}
+                        <span class="mx-2" style="opacity: 0.2;">|</span>
+                        <span style="font-weight: 600; color: {% if customer.status == 'ACTIVE' %}var(--brand-green){% else %}var(--brand-red){% endif %};">
                             {{ customer.get_status_display }}
                         </span>
                     </div>
@@ -37,13 +37,12 @@
             </div>
 
             <div class="d-flex align-items-center gap-5 ms-md-auto w-100 w-md-auto justify-content-between justify-content-md-end flex-wrap">
-                <!-- Behavioral Score -->
                 <div style="text-align: center;" class="d-none d-lg-block">
-                    <div class="stat-label" style="margin-bottom: 4px;">Collection Score</div>
+                    <div class="stat-label" style="margin-bottom: 6px; font-size: 11px;">Collection Score</div>
                     {% with score=customer.reliability_score.score %}
                         {% if score %}
-                            <div style="display: flex; align-items: center; gap: 10px;">
-                                <div style="width: 60px; height: 6px; background: rgba(0,0,0,0.05); border-radius: 3px; overflow: hidden;">
+                            <div style="display: flex; align-items: center; gap: 12px;">
+                                <div style="width: 70px; height: 6px; background: rgba(255,255,255,0.1); border-radius: 3px; overflow: hidden;">
                                     <div style="width: {{ score }}%; height: 100%; background: {% if score > 70 %}var(--brand-green){% elif score > 40 %}var(--brand-orange){% else %}var(--brand-red){% endif %};"></div>
                                 </div>
                                 <span style="font-weight: 800; font-size: 14px; color: {% if score > 70 %}var(--brand-green){% elif score > 40 %}var(--brand-orange){% else %}var(--brand-red){% endif %};">
@@ -51,21 +50,19 @@
                                 </span>
                             </div>
                         {% else %}
-                            <div style="font-size: 12px; font-weight: 600; color: var(--text-secondary); opacity: 0.6;">— New Customer —</div>
+                            <div style="font-size: 12px; font-weight: 600; color: var(--text-secondary); opacity: 0.5; letter-spacing: 0.02em;">— New Customer —</div>
                         {% endif %}
                     {% endwith %}
                 </div>
 
-                <!-- Outstanding Balance -->
                 <div style="text-align: right; min-width: 160px;">
-                    <div class="stat-label" style="margin-bottom: 2px;">Outstanding</div>
-                    <div style="font-weight: 800; font-size: 24px; letter-spacing: -0.02em; color: {% if customer.credit_account.current_balance > 0 %}var(--brand-red){% else %}var(--brand-green){% endif %};">
-                        ৳{{ customer.credit_account.current_balance|floatformat:0 }}
+                    <div class="stat-label" style="margin-bottom: 4px; font-size: 11px;">Outstanding</div>
+                    <div style="font-weight: 800; font-size: 28px; letter-spacing: -0.05em; color: {% if customer.credit_account.current_balance > 0 %}var(--brand-red){% else %}var(--brand-green){% endif %}; display: flex; align-items: baseline; justify-content: flex-end; gap: 2px;">
+                        <span style="font-size: 20px; font-weight: 600; opacity: 0.8;">৳</span>{{ customer.credit_account.current_balance|floatformat:0 }}
                     </div>
                 </div>
 
-                <!-- Action Button -->
-                <a href="/api/v1/customers/{{ customer.id }}/" class="apple-btn" style="background: var(--brand-blue); color: white !important; padding: 12px 24px; font-size: 13px; box-shadow: 0 4px 12px rgba(0, 113, 227, 0.2);">
+                <a href="/api/v1/customers/{{ customer.id }}/" class="apple-btn" style="background: var(--brand-blue); color: white !important; padding: 8px 18px; font-size: 13px; font-weight: 700; box-shadow: 0 4px 12px rgba(59, 130, 246, 0.25);">
                     Details
                 </a>
             </div>
@@ -74,7 +71,6 @@
         <div style="padding: 100px 40px; text-align: center; color: var(--text-secondary);">
             <i class="fa-solid fa-users-slash fa-5x mb-4 opacity-10"></i>
             <p style="font-size: 18px; font-weight: 600;">No customer records found.</p>
-            <p class="small opacity-60">Add your first customer to begin tracking credit.</p>
         </div>
         {% endfor %}
     </div>
