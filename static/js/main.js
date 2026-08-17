@@ -64,5 +64,86 @@
                 setTimeout(() => btn.parentElement.remove(), 300);
             });
         });
+
+        /**
+         * 🤖 AI Chatbot Logic
+         */
+        const chatBubble = document.getElementById('chat-bubble');
+        const chatWindow = document.getElementById('chat-window');
+        const closeChat = document.getElementById('close-chat');
+        const sendChat = document.getElementById('send-chat');
+        const chatInput = document.getElementById('chat-input');
+        const chatMessages = document.getElementById('chat-messages');
+
+        if (chatBubble && chatWindow) {
+            chatBubble.addEventListener('click', () => {
+                const isVisible = chatWindow.style.display === 'flex';
+                chatWindow.style.display = isVisible ? 'none' : 'flex';
+                if (!isVisible) chatInput.focus();
+            });
+
+            closeChat.addEventListener('click', () => {
+                chatWindow.style.display = 'none';
+            });
+
+            const appendMessage = (text, sender) => {
+                const msg = document.createElement('div');
+                msg.className = `message ${sender}`;
+                msg.textContent = text;
+                chatMessages.appendChild(msg);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            };
+
+            const handleSend = async () => {
+                const text = chatInput.value.trim();
+                if (!text) return;
+
+                appendMessage(text, 'user');
+                chatInput.value = '';
+
+                // Simulate AI Thinking
+                const typing = document.createElement('div');
+                typing.className = 'message bot';
+                typing.textContent = '...';
+                chatMessages.appendChild(typing);
+
+                try {
+                    const response = await fetch('/api/v1/chatbot/ask/', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRFToken': getCookie('csrftoken')
+                        },
+                        body: JSON.stringify({ query: text })
+                    });
+                    const data = await response.json();
+                    typing.remove();
+                    appendMessage(data.response, 'bot');
+                } catch (e) {
+                    typing.remove();
+                    appendMessage("Sorry, I'm having trouble connecting to the brain right now. 🧠", 'bot');
+                }
+            };
+
+            if (sendChat) sendChat.addEventListener('click', handleSend);
+            if (chatInput) chatInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') handleSend();
+            });
+        }
+
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
     });
 })();

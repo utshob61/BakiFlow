@@ -21,9 +21,12 @@ def health_check(request):
 
 from apps.accounts.views import logout_view, register_view
 
+from apps.intelligence.views import ChatbotAskView
+
 urlpatterns = [
     path('health/', health_check),
     path('', dashboard, name='dashboard'),
+    path('api/v1/chatbot/ask/', ChatbotAskView.as_view(), name='chatbot_ask'),
     path('customers/', include('apps.customers.urls')),
     path('credit/', include('apps.credit.urls')),
     path('payments/', include('apps.payments.urls')),

@@ -6,6 +6,7 @@ BakiFlow is a production-grade financial platform engineered for Bangladeshi SME
 ---
 
 ## 🌟 Key Highlights of v1.0
+*   **🤖 Intelligent AI Assistant:** Real-time financial insights via a contextual chatbot—ask about totals, top debtors, or collections.
 *   **🌓 Adaptive Dark Mode:** A sophisticated, Apple-inspired dark theme with zero-flash initialization and persistent state management.
 *   **📱 Mobile-First Perfection:** Fully responsive layouts (stat cards, grids, and stackable lists) optimized for SME owners on the go.
 *   **🎨 High-End Design:** Glassmorphism navigation, native-feel iOS-style list views, and high-impact fintech typography (Inter Extra Bold).
@@ -29,7 +30,7 @@ BakiFlow utilizes a **Clean Service-Oriented Architecture** within a modular Dja
                 │
        ┌────────▼─────────┐      ┌──────────────────────────┐
        │  Service Layer   │─────▶│   Intelligence Engines   │
-       │ (Logic & Events) │      │ (Reliability & Priority) │
+       │ (Logic & Events) │      │ (Reliability & AI Bot)   │
        └────────┬─────────┘      └──────────────┬───────────┘
                 │                               │
        ┌────────▼─────────┐                     │
@@ -46,8 +47,9 @@ BakiFlow utilizes a **Clean Service-Oriented Architecture** within a modular Dja
 | **Backend** | Django 5.0 (Python 3.12+) |
 | **API** | Django REST Framework (DRF) |
 | **Database** | PostgreSQL (Production), SQLite (Dev) |
+| **AI Engine** | Context-Aware Financial Logic (ProcessBot) |
 | **Static Files** | WhiteNoise (High-performance delivery) |
-| **Styling** | Custom Apple-Fintech CSS (v1.0), Bootstrap 5 Grid |
+| **Styling** | Custom Apple-Fintech CSS (v1.1), Bootstrap 5 Grid |
 | **Logic** | Service-based Architecture (FIFO Allocation) |
 | **Security** | 256-bit SSL Ready, Atomic Transactions, Tenant Isolation |
 
@@ -60,12 +62,17 @@ BakiFlow utilizes a **Clean Service-Oriented Architecture** within a modular Dja
 *   **Monetary Precision:** Strict use of `Decimal` for all calculations—zero floating-point errors.
 *   **Overpayment Protection:** Real-time validation preventing payments beyond the current balance.
 
-### 2. Collection Intelligence
+### 2. 🤖 Intelligence Assistant (Chatbot)
+*   **Contextual Queries:** Owners can ask natural questions like *"Who owes me the most?"* or *"Total baki summary"*.
+*   **Spelling Tolerance:** Handles common SME misspellings (e.g., "debotors") and provides direct, data-driven answers.
+*   **Safe Scoping:** The AI only ever sees data belonging to the authenticated business owner.
+
+### 3. Collection Intelligence
 *   **Reliability Score (0-100):** Behavioral analysis based on historical payment consistency.
-*   **Priority Engine:** AI-powered ranking (Critical, High, Medium, Low) for daily collection tasks.
+*   **Priority Engine:** Automated ranking (Critical, High, Medium, Low) for daily collection tasks.
 *   **Visual Progress:** High-integrity reliability bars embedded directly in customer lists.
 
-### 3. SME Enterprise Multi-Tenancy
+### 4. SME Enterprise Multi-Tenancy
 *   **Strict Isolation:** Business data is cryptographically and logically isolated between tenants.
 *   **Role Hierarchy:** Native support for Owners, Staff, Accountants, and Customers.
 
@@ -119,7 +126,7 @@ BakiFlow utilizes a **Clean Service-Oriented Architecture** within a modular Dja
 | Method | Endpoint | Description |
 | :--- | :--- | :--- |
 | `GET` | `/api/v1/customers/` | List customers with intelligence metrics |
-| `POST` | `/api/v1/credit-sales/` | Record a new Baki transaction |
+| `POST` | `/api/v1/chatbot/ask/` | Interact with the AI Financial Assistant |
 | `POST` | `/api/v1/payments/` | Record collection & trigger FIFO matching |
 | `GET` | `/api/v1/customers/export_csv/` | Export high-integrity ledger as CSV |
 
@@ -135,7 +142,7 @@ BakiFlow utilizes a **Clean Service-Oriented Architecture** within a modular Dja
 ## 📈 Roadmap
 *   [ ] **AlphaSMS Gateway:** Automated payment reminders via SMS.
 *   [ ] **WhatsApp Connect:** Direct sending of statements via WhatsApp.
-*   [ ] **Advanced Health:** Business-wide financial health scoring (0-100).
+*   [ ] **Forecasting:** Cash flow prediction using historical seasonal trends.
 
 ---
 

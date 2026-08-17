@@ -56,7 +56,7 @@
         {% if messages %}
             <div id="messages-container">
                 {% for message in messages %}
-                    <div style="background: var(--bg-card); color: var(--text-primary); padding: 16px 24px; border-radius: 16px; border: 1px solid var(--border-color); margin-bottom: 24px; box-shadow: var(--card-shadow); display: flex; justify-content: space-between; align-items: center; transition: opacity 0.3s ease;">
+                    <div style="background: var(--bg-card); color: var(--text-primary); padding: 18px 24px; border-radius: 16px; border: 1px solid var(--border-color); margin-bottom: 24px; box-shadow: var(--card-shadow); display: flex; justify-content: space-between; align-items: center; transition: opacity 0.3s ease;">
                         <span>{{ message }}</span>
                         <i class="fa-solid fa-xmark opacity-50 alert-close" style="cursor: pointer;"></i>
                     </div>
@@ -65,6 +65,32 @@
         {% endif %}
 
         {% block content %}{% endblock %}
+    </div>
+
+    <!-- AI Chatbot UI -->
+    <div id="chat-bubble" class="chat-bubble">
+        <i class="fa-solid fa-comment-dots"></i>
+    </div>
+
+    <div id="chat-window" class="chat-window" style="display: none; flex-direction: column;">
+        <div class="chat-header">
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <i class="fa-solid fa-robot"></i>
+                <span style="font-weight: 700;">BakiFlow AI</span>
+            </div>
+            <i class="fa-solid fa-xmark" id="close-chat" style="cursor: pointer;"></i>
+        </div>
+        <div class="chat-messages" id="chat-messages">
+            <div class="message bot">
+                Hi! I'm BakiFlow AI. I can tell you about your outstanding balances, top debtors, and more. Try asking "Who owes me the most?"
+            </div>
+        </div>
+        <div class="chat-input-area">
+            <input type="text" id="chat-input" class="chat-input" placeholder="Ask BakiFlow AI...">
+            <button id="send-chat" class="chat-send">
+                <i class="fa-solid fa-paper-plane"></i>
+            </button>
+        </div>
     </div>
 
     <script src="{% static 'js/main.js' %}?v=2.4"></script>
