@@ -146,5 +146,19 @@ BakiFlow utilizes a **Clean Service-Oriented Architecture** within a modular Dja
 
 ---
 
+## 🚀 Deployment (Vercel)
+BakiFlow is configured for one-click deployment to Vercel.
+
+1.  **Push to GitHub**: Ensure all changes are committed.
+2.  **Connect to Vercel**: Import the repository.
+3.  **Environment Variables**: Add the following in Vercel:
+    *   `SECRET_KEY`: Your production secret.
+    *   `DEBUG`: `False`
+    *   `DATABASE_URL`: Your PostgreSQL connection string (e.g., Supabase or Neon).
+    *   `ALLOWED_HOSTS`: `.vercel.app`
+4.  **Build Settings**: Use the default settings; `vercel.json` will handle the routing.
+
+---
+
 ## 🇧🇩 Proudly Built for Bangladesh
 BakiFlow is localized for the unique SME ecosystem in Bangladesh, prioritizing simplicity, speed, and high-trust financial transparency.
