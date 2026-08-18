@@ -155,7 +155,12 @@ BakiFlow is configured for one-click deployment to Vercel.
     *   `SECRET_KEY`: Your production secret.
     *   `DEBUG`: `False`
     *   `DATABASE_URL`: Your PostgreSQL connection string (e.g., Supabase or Neon).
-    *   `ALLOWED_HOSTS`: `.vercel.app`
+    *   `ALLOWED_HOSTS`: `*`
+
+### 🏗️ Database Migration (Vercel)
+Since Vercel is serverless, you need to run migrations against your production database. You can do this by:
+1.  Running `python manage.py migrate` locally after pointing your `DATABASE_URL` to your production host.
+2.  Or using a temporary build step (though manual migration is safer).
 4.  **Build Settings**: Use the default settings; `vercel.json` will handle the routing.
 
 ---

@@ -20,3 +20,5 @@ ENV/
 # Static files
 staticfiles/
 media/
+.vercel
+.env*

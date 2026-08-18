@@ -15,9 +15,10 @@ from apps.analytics.views import dashboard
 from django.contrib.auth import views as auth_views
 
 from django.http import HttpResponse
+from django.utils import timezone
 
 def health_check(request):
-    return HttpResponse("BakiFlow is running!")
+    return HttpResponse("BakiFlow is running! " + str(timezone.now()))
 
 from apps.accounts.views import logout_view, register_view
 
