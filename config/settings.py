@@ -62,9 +62,10 @@ INSTALLED_APPS = [
     'apps.audit',
 ]
 
+# --- MIDDLEWARE ---
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware', # Place directly after SecurityMiddleware
     'django.contrib.sessions.middleware.SessionMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -127,7 +128,8 @@ STORAGES = {
     },
 }
 
-WHITENOISE_KEEP_ONLY_HASHED_FILES = True
+WHITENOISE_USE_FINDERS = True
+WHITENOISE_AUTOREFRESH = DEBUG
 
 # --- DRF ---
 REST_FRAMEWORK = {
