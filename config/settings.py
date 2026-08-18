@@ -118,7 +118,9 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
-# Production Static Storage (WhiteNoise)
+# Robust WhiteNoise Configuration for Vercel
+WHITENOISE_USE_FINDERS = True
+WHITENOISE_AUTOREFRESH = True
 STORAGES = {
     "default": {
         "BACKEND": "django.core.files.storage.FileSystemStorage",
@@ -127,9 +129,6 @@ STORAGES = {
         "BACKEND": "whitenoise.storage.CompressedStaticFilesStorage",
     },
 }
-
-WHITENOISE_USE_FINDERS = True
-WHITENOISE_AUTOREFRESH = DEBUG
 
 # --- DRF ---
 REST_FRAMEWORK = {
