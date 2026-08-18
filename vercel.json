@@ -8,6 +8,11 @@
   ],
   "routes": [
     {
+      "src": "/static/(.*)",
+      "dest": "/staticfiles/$1",
+      "continue": true
+    },
+    {
       "src": "/(.*)",
       "dest": "vercel_app.py"
     }
