@@ -1,76 +1,101 @@
 {% extends 'base.html' %}
+{% load static %}
+
+{% block title %}BakiFlow | My Portal{% endblock %}
 
 {% block content %}
-<div class="row">
-    <div class="col-12" style="margin-bottom: 40px;">
-        <p style="color: var(--apple-blue); font-weight: 600; margin-bottom: 0px; font-size: 13px;">Customer Portal</p>
-        <h1>{{ customer.name }}</h1>
-        <p style="color: var(--apple-gray); font-size: 15px;">{{ customer.business.name }}</p>
+<div style="padding-top: 40px; padding-bottom: 60px;">
+    <div class="row mb-5">
+        <div class="col-12">
+            <p style="color: var(--brand-blue); font-weight: 700; margin-bottom: 4px; font-size: 13px; text-transform: uppercase; letter-spacing: 0.05em;">Customer Portal</p>
+            <h1 style="margin: 0; font-size: 32px;">{{ customer.name }}</h1>
+            <p style="color: var(--text-secondary); font-size: 15px; margin-top: 4px;">{{ customer.business.name }}</p>
+        </div>
+    </div>
+
+    <!-- Customer Summary Cards -->
+    <div class="row g-4 mb-5">
+        <div class="col-12 col-md-4">
+            <div class="stat-card-fintech h-100" style="border-left: 4px solid var(--brand-red);">
+                <div class="stat-header">Your Balance Due</div>
+                <div class="stat-value-large" style="color: var(--brand-red); display: flex; align-items: baseline; gap: 4px;">
+                    <span style="font-size: 24px; font-weight: 600; opacity: 0.8;">৳</span>{{ account.current_balance|floatformat:0 }}
+                </div>
+                <div style="font-size: 12px; color: var(--text-secondary); margin-top: 12px;">
+                    Outstanding "Baki"
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-md-4">
+            <div class="stat-card-fintech h-100">
+                <div class="stat-header">Total Baki Taken</div>
+                <div class="stat-value-large" style="display: flex; align-items: baseline; gap: 4px;">
+                    <span style="font-size: 24px; font-weight: 600; opacity: 0.7;">৳</span>{{ account.total_credit_granted|floatformat:0 }}
+                </div>
+                <div style="font-size: 12px; color: var(--text-secondary); margin-top: 12px;">
+                    Lifetime History
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-md-4">
+            <div class="stat-card-fintech h-100" style="border-left: 4px solid var(--brand-green);">
+                <div class="stat-header">Total Paid</div>
+                <div class="stat-value-large" style="color: var(--brand-green); display: flex; align-items: baseline; gap: 4px;">
+                    <span style="font-size: 24px; font-weight: 600; opacity: 0.8;">৳</span>{{ account.total_paid|floatformat:0 }}
+                </div>
+                <div style="font-size: 12px; color: var(--text-secondary); margin-top: 12px;">
+                    Success Payments
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-5">
+        <!-- Recent Sales -->
+        <div class="col-12 col-lg-6">
+            <h3 class="section-title">RECENT SALES</h3>
+            <div class="apple-list shadow-sm">
+                {% for sale in sales %}
+                <div class="list-item">
+                    <div>
+                        <div style="font-weight: 700; font-size: 15px; color: var(--text-primary);">Purchase</div>
+                        <div style="color: var(--text-secondary); font-size: 12px;">{{ sale.sale_date|date:"M d, Y" }}</div>
+                    </div>
+                    <div style="text-align: right;">
+                        <div style="font-weight: 800; font-size: 17px; color: var(--text-primary);">৳{{ sale.amount|floatformat:0 }}</div>
+                        <div style="font-size: 10px; text-transform: uppercase; font-weight: 800; color: var(--brand-orange); background: rgba(245, 158, 11, 0.1); padding: 2px 8px; border-radius: 10px; display: inline-block;">{{ sale.get_status_display }}</div>
+                    </div>
+                </div>
+                {% empty %}
+                <div style="padding: 40px; text-align: center; color: var(--text-secondary); opacity: 0.6;">No purchase history.</div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Recent Payments -->
+        <div class="col-12 col-lg-6">
+            <h3 class="section-title">RECENT PAYMENTS</h3>
+            <div class="apple-list shadow-sm">
+                {% for payment in payments %}
+                <div class="list-item">
+                    <div>
+                        <div style="font-weight: 700; font-size: 15px; color: var(--text-primary);">Collection</div>
+                        <div style="color: var(--text-secondary); font-size: 12px;">{{ payment.payment_date|date:"M d, Y" }}</div>
+                    </div>
+                    <div style="text-align: right;">
+                        <div style="font-weight: 800; font-size: 18px; color: var(--brand-green);">+ ৳{{ payment.amount|floatformat:0 }}</div>
+                        <div style="font-size: 10px; text-transform: uppercase; font-weight: 800; color: var(--brand-blue); background: rgba(59, 130, 246, 0.1); padding: 2px 8px; border-radius: 10px; display: inline-block;">{{ payment.get_method_display }}</div>
+                    </div>
+                </div>
+                {% empty %}
+                <div style="padding: 40px; text-align: center; color: var(--text-secondary); opacity: 0.6;">No payment history.</div>
+                {% endfor %}
+            </div>
+        </div>
     </div>
 </div>
 
-<!-- Customer Summary -->
-<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px;">
-    <div class="apple-card">
-        <div class="stat-label">Your Balance Due</div>
-        <div class="stat-value text-danger">৳{{ account.current_balance|floatformat:0 }}</div>
-    </div>
-    <div class="apple-card">
-        <div class="stat-label">Total Baki Taken</div>
-        <div class="stat-value text-primary">৳{{ account.total_credit_granted|floatformat:0 }}</div>
-    </div>
-    <div class="apple-card">
-        <div class="stat-label">Total Paid</div>
-        <div class="stat-value text-success">৳{{ account.total_paid|floatformat:0 }}</div>
-    </div>
-</div>
-
-<div class="row mt-5">
-    <div class="col-md-6">
-        <h3 class="section-title">RECENT SALES</h3>
-        <div class="apple-card" style="padding: 0; overflow: hidden;">
-            <table class="apple-table">
-                <thead>
-                    <tr>
-                        <th>Date</th>
-                        <th style="text-align: right;">Amount</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for sale in sales %}
-                    <tr>
-                        <td>{{ sale.sale_date }}</td>
-                        <td style="text-align: right; font-weight: 600;">৳{{ sale.amount|floatformat:2 }}</td>
-                    </tr>
-                    {% empty %}
-                    <tr><td colspan="2" class="text-center p-4">No records</td></tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
-    </div>
-    <div class="col-md-6">
-        <h3 class="section-title">RECENT PAYMENTS</h3>
-        <div class="apple-card" style="padding: 0; overflow: hidden;">
-            <table class="apple-table">
-                <thead>
-                    <tr>
-                        <th>Date</th>
-                        <th style="text-align: right;">Amount</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for payment in payments %}
-                    <tr>
-                        <td>{{ payment.payment_date|date:"M d, Y" }}</td>
-                        <td style="text-align: right; font-weight: 600; color: var(--apple-green);">৳{{ payment.amount|floatformat:2 }}</td>
-                    </tr>
-                    {% empty %}
-                    <tr><td colspan="2" class="text-center p-4">No records</td></tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
-    </div>
-</div>
+<footer style="margin-top: 80px; padding-bottom: 40px; text-align: center; color: var(--text-secondary); font-size: 12px; font-weight: 500; opacity: 0.6;">
+    🇧🇩 BakiFlow Customer Portal v1.0 • Modern Financial Transparency
+</footer>
 {% endblock %}
